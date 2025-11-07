@@ -17,6 +17,7 @@ body {
   background: var(--dark-bg);
   color: var(--dark-text);
   transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
 }
 
 body.light {
@@ -33,6 +34,7 @@ body.light {
   padding: 20px;
   overflow-y: auto;
   transition: background 0.3s, color 0.3s;
+  flex-shrink: 0;
 }
 
 body.light .sidebar {
@@ -64,6 +66,7 @@ body.light .sidebar input {
 }
 
 .section { margin-bottom: 15px; }
+
 .section button {
   background: none;
   border: none;
@@ -77,11 +80,13 @@ body.light .sidebar input {
   transition: color 0.2s;
 }
 .section button:hover { color: var(--red); }
+
 .subtopics {
-  display: none;
+  display: none; /* hidden by default */
   margin-left: 10px;
   font-size: 0.9rem;
 }
+
 .subtopics a {
   display: block;
   color: inherit;
@@ -124,3 +129,26 @@ body.light .sidebar input {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
 body.light ::-webkit-scrollbar-thumb { background: #bbb; }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  body { flex-direction: column; }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar h2, .section button, .sidebar input {
+    margin: 5px 0;
+  }
+
+  .content { padding: 20px; }
+}
