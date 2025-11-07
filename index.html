@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team 3512 Spartatroniks | Electrical Handbook</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sidebar">
+  <h2>Spartatroniks ⚡</h2>
+  <input type="text" id="search" placeholder="Search topics...">
+  <div id="menu">
+    <div class="section">
+      <button>Electrical Basics</button>
+      <div class="subtopics">
+        <a href="#" data-topic="safety">Safety & Etiquette</a>
+        <a href="#" data-topic="tools">Tools Overview</a>
+        <a href="#" data-topic="ohms">Ohms & Resistors</a>
+        <a href="#" data-topic="fuses">Fuses</a>
+      </div>
+    </div>
+    <div class="section">
+      <button>Power Systems</button>
+      <div class="subtopics">
+        <a href="#" data-topic="battery">Battery Handling</a>
+        <a href="#" data-topic="breaker">Main Breaker & PDH</a>
+        <a href="#" data-topic="recheck">Rechecking Connections</a>
+      </div>
+    </div>
+    <div class="section">
+      <button>Wiring & Assembly</button>
+      <div class="subtopics">
+        <a href="#" data-topic="crimping">Crimping</a>
+        <a href="#" data-topic="soldering">Soldering</a>
+        <a href="#" data-topic="deburring">Deburring & Tapping</a>
+        <a href="#" data-topic="board">Electrical Board Setup</a>
+        <a href="#" data-topic="wire">Wire Management</a>
+      </div>
+    </div>
+    <div class="section">
+      <button>Components & Connections</button>
+      <div class="subtopics">
+        <a href="#" data-topic="roborio">RoboRIO</a>
+        <a href="#" data-topic="kraken">Kraken Motors</a>
+        <a href="#" data-topic="swerve">Swerve Modules</a>
+        <a href="#" data-topic="sensors">Sensors & CAN Bus</a>
+        <a href="#" data-topic="status">Status Lights</a>
+      </div>
+    </div>
+    <div class="section">
+      <button>Testing & Troubleshooting</button>
+      <div class="subtopics">
+        <a href="#" data-topic="multimeter">Using a Multimeter</a>
+        <a href="#" data-topic="continuity">Continuity Checks</a>
+        
+      </div>
+    </div>
+    <div class="section">
+      <button>3D Printing</button>
+      <div class="subtopics">
+        <a href="#" data-topic="printer">Printer Setup</a>
+        <a href="#" data-topic="slicer">Slicer Settings</a>
+        <a href="#" data-topic="maintenance">Maintenance</a>
+      </div>
+    </div>
+    <div class="section">
+      <button>Reference</button>
+      <div class="subtopics">
+        <a href="#" data-topic="gauge">Wire Gauge Chart</a>
+        <a href="#" data-topic="diagram">Wiring Diagram Examples</a>
+        <a href="#" data-topic="checklist">Pit Checklist</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="content">
+  <button class="toggle">Toggle Light/Dark</button>
+  <h1>Welcome to the Electrical Handbook</h1>
+  <p>This digital guide was created by <strong>Team 3512 Spartatroniks</strong> to help new and returning members master everything electrical — from wiring and soldering to safety, troubleshooting, and 3D printing.</p>
+  <p>Explore each section using the sidebar, or use the search bar to quickly find a topic. The light/dark mode toggle lets you switch between pit-friendly dark mode and classroom-friendly light mode.</p>
+</div>
+
+<script>
+const content = document.querySelector('.content');
+
+// All topics must be strings (use backticks for multi-line HTML)
+const topics = {
+  safety: `
+<h1>Electrical Safety & Etiquette</h1>
+<p>Safety is the top priority when working on the robot. Follow these rules to protect yourself, your teammates, and the robot’s electronics.</p>
+
+<h2>Soldering Safety</h2>
+<ul>
+  <li>Always wear <strong>safety glasses</strong> in the build room.</li>
+  <li>Use <strong>gloves</strong> when deburring or handling sharp edges.</li>
+  <li>Use the <strong>vacuum fan</strong> to remove solder smoke and fumes.</li>
+  <li>Turn off the soldering iron when not in use and allow it to cool.</li>
+  <li>Use helping hands, clamps, or Kotto extra hands to hold wires; never hold hot wires directly with your fingers.</li>
+  <li>Always tin wires before soldering and apply <strong>flux</strong> to help solder spread evenly. Do not use expired flux.</li>
+  <li>Use a <strong>wet sponge</strong> to clean the soldering iron tip; never place the iron on a dry sponge (fire hazard).</li>
+  <li>If you make a soldering mistake, you can reheat the joint and adjust the tin or solder as needed.</li>
+  <li>Use a magnifying lamp for precise soldering (optional).</li>
+  <li>Do not “birdy cage” wires—avoid twisting two stripped ends together without proper soldering.</li>
+</ul>
+
+<h2>Battery Safety</h2>
+<ul>
+  <li>Use a <strong>Battery Beak</strong> to check battery status. Press twice to see if it is Good, Fair, or Bad.</li>
+  <li>Do not grab wires from the battery plugs. Handle the battery itself carefully.</li>
+  <li>Check for exposed wires; tape them red for + and black for -.</li>
+  <li>Use a <strong>multimeter</strong> to verify current flow, voltage, and Ohms before and after connecting the battery.</li>
+  <li>Never plug batteries into each other—always use a proper charger.</li>
+  <li>Do not unplug the battery while the robot is powered on; turn off the robot first.</li>
+  <li>Be aware of the battery’s weight—dropping it can cause injury or damage.</li>
+</ul>
+
+<h2>Breaker, PDH & Fuse Safety</h2>
+<ul>
+  <li>Label and make the main breaker accessible for emergency shutdown.</li>
+  <li>Ensure wiring from battery → main breaker → PDH → branch circuits is the correct gauge and properly routed.</li>
+  <li>Verify correct polarity: positive to positive, negative to negative.</li>
+  <li>Check all PDH fuses and branch circuit breakers. They protect circuits from overcurrent and work with the main breaker to prevent damage.</li>
+  <li>Do not bypass fuses or use incorrectly rated fuses.</li>
+  <li>Inspect PDH, breakers, and fuses regularly for discoloration, melted insulation, or loose connections.</li>
+  <li>High-current faults can cause sparks, heat, or molten metal even at 12V—handle with care.</li>
+  <li>After repairs or modifications, re-examine all connections before powering the robot.</li>
+</ul>
+
+<h2>General Workspace Safety & Etiquette</h2>
+<ul>
+  <li>Keep the electrical table organized; do not leave anything on the floor.</li>
+  <li>Do not place fluids near electronics.</li>
+  <li>Do not use or mess with tools while someone else is working; always put tools away when done.</li>
+  <li>Recheck your own and your teammates’ connections before powering the robot.</li>
+  <li>Do not turn on the robot if connections are loose or incomplete.</li>
+  <li>Be mindful of your teammates and communicate clearly during work.</li>
+  <li>Check voltage, current, and resistance with a multimeter after wiring or soldering jobs.</li>
+  <li>Follow safe handling practices for all electrical components, including motors, sensors, PDH, RoboRIO, and batteries.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Following all these safety and etiquette rules ensures a safe, organized, and productive workspace for everyone on the electrical team.</p>
+`
+,
+ tools: `
+<h1>Tools Overview</h1>
+<p>The electrical team uses a variety of tools to prepare, assemble, and maintain the robot's wiring and components. Knowing each tool and its purpose helps ensure safe and efficient work.</p>
+
+<ul>
+  <li><strong>Wire Strippers:</strong> Remove insulation from wires cleanly without damaging the conductor inside.</li>
+  <li><strong>Wire Cutters:</strong> Cut wires to the desired length quickly and cleanly.</li>
+  <li><strong>Bandsaw:</strong> Cuts larger materials, like aluminum or plastic parts, to size for mounting or assembly.</li>
+  <li><strong>Sander:</strong> Smooths surfaces, removes burrs, or prepares surfaces for better electrical connections.</li>
+  <li><strong>Soldering Iron:</strong> Heats solder to join wires or components securely. Used with flux and helping hands for precision.</li>
+  <li><strong>Crimps:</strong> Tools used to attach connectors to wires without soldering. Ensures secure electrical connections.</li>
+  <li><strong>Other Tools:</strong> Various pliers, screwdrivers, tweezers, and clamps are used for wire management, holding components, or adjusting small parts.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Understanding the purpose of each tool is essential for safe and efficient electrical work.</p>
+`
+,
+  ohms: `
+<h1>Ohms & Resistors</h1>
+<p>Understanding Ohms and resistors is key to building safe and effective electrical circuits on your robot.</p>
+
+<h2>What is Ohm (Ω)?</h2>
+<ul>
+  <li>Ohm (Ω) is the unit of electrical resistance. It measures how much a component resists the flow of electric current.</li>
+  <li>Voltage (V) is the “pressure” pushing current through a circuit, while Ohms resist that flow.</li>
+  <li>Current (I) is the actual flow of electricity. Ohm’s Law connects all three: <strong>V = I × R</strong> (Voltage = Current × Resistance).</li>
+</ul>
+
+<h2>Resistors</h2>
+<ul>
+  <li>Resistors are components that limit or control the flow of electrical current in a circuit.</li>
+  <li>They are used to protect electronics, adjust signal levels, or create desired current flows for sensors and LEDs.</li>
+  <li>Resistors are labeled with their resistance value (in Ohms) and tolerance (accuracy).</li>
+</ul>
+
+<h2>Understanding Resistor Values</h2>
+<ul>
+  <li>A resistor marked <strong>1000Ω 5%</strong> means it has a nominal resistance of 1000 Ohms with a tolerance of ±5%.</li>
+  <li>Tolerance shows how much the actual resistance can vary from the stated value (e.g., a 1000Ω 5% resistor could be anywhere from 950Ω to 1050Ω).</li>
+  <li>Resistor values are often identified by colored bands. Each color corresponds to a number that helps calculate the resistance value.</li>
+  <li>Example: A resistor with bands brown-black-red-gold = 1 (brown), 0 (black), ×100 (red), ±5% (gold) = 1000Ω ±5%.</li>
+</ul>
+
+<h2>Using Ohms & Resistors</h2>
+<ul>
+  <li>Measure voltage across a resistor to calculate current using Ohm’s Law.</li>
+  <li>Use resistors to limit current to LEDs, sensors, or other sensitive electronics.</li>
+  <li>Check resistors with a multimeter to ensure they match the expected value before installing.</li>
+  <li>Resistors are essential for safe and functional circuits, preventing damage from excess current.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Knowing Ohms, voltage, and current helps you design, test, and troubleshoot circuits effectively and safely.</p>
+`
+,
+  fuses: `
+<h1>Fuses in the PDH</h1>
+<p>Fuses are essential components in the Power Distribution Hub (PDH) that protect individual circuits from overcurrent or faults. Each fuse is designed to blow if too much current flows through a specific branch, preventing damage to motors, sensors, or other electronics.</p>
+
+<h2>Purpose of Fuses</h2>
+<ul>
+  <li>Protect individual branch circuits in the PDH from overcurrent.</li>
+  <li>Prevent damage to electronics by stopping excess current before it reaches sensitive components.</li>
+  <li>Work together with the main breaker: the main breaker protects the entire system, while fuses protect individual circuits.</li>
+  <li>Make troubleshooting easier: if a fuse blows, you know exactly which branch circuit is experiencing a problem.</li>
+</ul>
+
+<h2>Handling & Safety</h2>
+<ul>
+  <li>Always use the correct fuse rating for each PDH branch circuit. Using the wrong rating can fail to protect the circuit or cause nuisance trips.</li>
+  <li>Do not bypass fuses or replace them with wire; this defeats safety and can cause serious damage.</li>
+  <li>Inspect fuses regularly for discoloration, melting, or corrosion.</li>
+  <li>Turn off the main breaker before replacing or checking fuses.</li>
+  <li>Verify polarity and proper seating in the PDH to ensure the fuse functions correctly.</li>
+  <li>After replacing a fuse, test the circuit with a multimeter for continuity and proper current flow before powering the robot.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Proper use and handling of fuses ensure safe, reliable, and protected operation of your robot’s electrical system.</p>
+`
+,
+ battery: `
+<h1>Battery Handling</h1>
+<p>Batteries are heavy and store a lot of energy, so proper handling is extremely important to keep yourself and the robot safe. Follow these steps carefully whenever working with batteries.</p>
+
+<h2>Checking Battery Status</h2>
+<ul>
+  <li>Use a Battery Beak to check the battery connections and status. Press the button <strong>twice</strong> to see the result.</li>
+  <li>The Beak will show: <strong>Good</strong>, <strong>Fair</strong>, or <strong>Bad</strong>.</li>
+  <li>130% means the battery is full and in good condition.</li>
+  <li>The Battery Beak is mainly for checking battery health and charge level, not for current flow.</li>
+  <li>Use a multimeter to check that current is actually flowing, as well as voltage and Ohms readings.</li>
+</ul>
+
+<h2>Safe Connection Practices</h2>
+<ul>
+  <li>Never grab wires from the wire plugs; always handle the battery itself.</li>
+  <li>If you see exposed wires or copper, tape them: <strong>Red for +</strong> and <strong>Black for –</strong>.</li>
+  <li>Plug batteries into the charger, <strong>never into another battery</strong>.</li>
+  <li>Do not unplug the battery while the robot is on. Always turn off the robot first.</li>
+</ul>
+
+<h2>Handling and Safety</h2>
+<ul>
+  <li>Treat batteries with care—they are heavy and can cause injury or damage if dropped.</li>
+  <li>Be observant when connecting and disconnecting batteries to avoid short circuits or damage.</li>
+  <li>Double-check connections and wiring, making sure crimps are secure and wires are properly routed.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Proper battery handling ensures safety, prevents damage, and keeps your robot powered and ready for competition.</p>
+`
+,
+ breaker: `
+<h1>Main Breaker, PDH & Fuses</h1>
+<p>The main breaker, Power Distribution Hub (PDH), and fuses are the backbone of your robot’s electrical safety system. They work together to distribute power and protect your robot’s electronics from damage due to overloads, short circuits, or other faults.</p>
+
+<h2>Key Functions</h2>
+<ul>
+  <li><strong>Main Breaker:</strong> The primary power switch between the battery and the robot. It allows quick shutdown and protects the system from major overloads.</li>
+  <li><strong>PDH:</strong> Receives power from the battery through the main breaker and distributes it to multiple smaller circuits for motors, sensors, and controllers. Many PDHs include status LEDs or diagnostic indicators.</li>
+  <li><strong>Fuses:</strong> Installed in each branch circuit of the PDH to prevent excessive current from damaging motors, sensors, or other components. If a fault occurs in one branch, the fuse will blow and protect the rest of the system.</li>
+  <li>The main breaker and fuses complement each other: the main breaker protects the overall system, while fuses protect individual circuits from overcurrent.</li>
+</ul>
+
+<h2>How They Work Together</h2>
+<ul>
+  <li>Power flows from the battery → main breaker → PDH → branch circuits.</li>
+  <li>If a motor stalls or a short occurs in one branch, the fuse will blow, preventing damage to the rest of the system.</li>
+  <li>If the entire system draws too much current (like a major short), the main breaker will trip to protect the battery and wiring.</li>
+  <li>Both devices ensure that electrical faults do not cause overheating, fire, or permanent damage to components.</li>
+</ul>
+
+<h2>Safety Hazards & Handling</h2>
+<ul>
+  <li>Always use the correct wire gauge from battery to main breaker to PDH and to branch circuits. Undersized wires can overheat.</li>
+  <li>Never bypass fuses or use an incorrectly rated fuse; this defeats the safety system.</li>
+  <li>Check polarity and secure connections; positive to positive, negative to negative.</li>
+  <li>Keep the main breaker accessible for emergency shutdown.</li>
+  <li>Inspect PDH and fuses regularly for melted insulation, discoloration, or loose connections.</li>
+  <li>Do not attempt to remove or replace fuses while the robot is powered; turn off the main breaker first.</li>
+  <li>Be aware that high-current faults can cause sparks, heat, or molten metal—even at 12V systems—so handle with care.</li>
+</ul>
+
+<h2>Team Checklist</h2>
+<ul>
+  <li>Label and verify accessibility of the main breaker.</li>
+  <li>Check wiring from battery → main breaker → PDH → fuses is correctly sized and routed.</li>
+  <li>Verify each PDH branch circuit has the correct fuse installed and functioning.</li>
+  <li>Inspect for signs of overheating or damage before powering on the robot.</li>
+  <li>Test subsystems under load and monitor for unusual heating, sparks, or voltage drops.</li>
+  <li>Document all breaker and fuse ratings for inspection and reference.</li>
+  <li>After repairs or modifications, re-examine all connections before applying power.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">The main breaker, PDH, and fuses work together to keep your robot safe, reliable, and ready for competition.</p>
+`
+,
+  recheck: `
+<h1>Rechecking Connections</h1>
+<p>Rechecking connections is an essential step to ensure that all wiring and components on the robot are secure and functioning properly. This process helps prevent electrical failures during competitions and ensures that power and signals reach all critical parts of the robot.</p>
+
+<h2>Why Rechecking Connections is Important</h2>
+<ul>
+  <li>Ensures that all wires and connections allow proper current flow.</li>
+  <li>Helps identify faulty connections before matches or testing.</li>
+  <li>Status lights on components give a quick visual indication of any issues.</li>
+  <li>Using a multimeter verifies that current can flow and connections are electrically sound.</li>
+</ul>
+
+<h2>Step 1: Visual Inspection and Status Lights</h2>
+<ul>
+  <li>Look at status lights on all components to quickly detect errors or disconnected devices.</li>
+  <li>Check for loose wires, improperly seated connectors, or damaged crimps.</li>
+  <li>Secure wires with zip ties to maintain stability and organization.</li>
+</ul>
+
+<h2>Step 2: Tug-Test Important Wires</h2>
+<ul>
+  <li>Gently pull on critical wires, such as power or sensor cables, to ensure they are firmly attached.</li>
+  <li>Focus on connections to the RoboRIO, PDP, and motor controllers, as these are key components.</li>
+  <li>Be careful not to pull too hard to avoid damaging connectors or crimps.</li>
+</ul>
+
+<h2>Step 3: Using a Multimeter to Verify Connections</h2>
+<ul>
+  <li>Set the multimeter to continuity or Ohms (Ω) mode.</li>
+  <li>Touch the probes to each end of a wire or connection to confirm current can flow.</li>
+  <li>A beep or near-zero resistance confirms a good connection.</li>
+  <li>If the reading is high or no continuity is detected, the wire, connector, or solder joint may be faulty.</li>
+  <li>Check hard-to-reach areas, such as inside swerve drives or under motor controllers.</li>
+</ul>
+
+<h2>Step 4: Checking Connectors and Crimps</h2>
+<ul>
+  <li>Ensure all male and female connectors are inserted correctly; misalignment can prevent current flow.</li>
+  <li>Verify crimps for solid connections; poorly crimped wires are a common source of electrical failure.</li>
+  <li>Re-crimp or resolder connections if needed for reliability.</li>
+</ul>
+
+<h2>Step 5: Verify Key Components</h2>
+<ul>
+  <li>Double-check PDP connections, as loose connections here can affect the entire robot.</li>
+  <li>Check RoboRIO connections; faulty inputs can cause significant issues during operation.</li>
+  <li>Organize wires with zip ties to prevent strain and maintain stability in tight areas.</li>
+</ul>
+
+<h2>Best Practices</h2>
+<ul>
+  <li>Perform connection checks regularly, especially before competitions or testing sessions.</li>
+  <li>Combine visual inspection, tug-tests, and multimeter verification for thorough checks.</li>
+  <li>Pay attention to hidden or hard-to-access wiring to ensure nothing is missed.</li>
+  <li>Label and organize wires to make troubleshooting easier and faster.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Regularly rechecking connections, monitoring status lights, and maintaining organized wiring ensures your robot is safe, reliable, and ready for competition.</p>
+`
+,
+  crimping: `<h1>Crimping</h1><p>Use the correct crimping tool and connector size...</p>`,
+ soldering: `
+<h1>Soldering</h1>
+<p>Soldering is an essential skill for building reliable electrical connections on our FRC robots. Done correctly, soldering ensures strong, neat, and long-lasting joints. This tutorial covers everything you need to know, including preparation, techniques, tools, and safety precautions.</p>
+
+<h2>Tools and Equipment</h2>
+<ul>
+  <li><strong>Soldering iron:</strong> Heats up (usually takes ~1 minute) and does <strong>not have adjustable temperature</strong>. Wait until it reaches full heat before soldering.</li>
+  <li><strong>Solder wire:</strong> For connecting wires; use rosin-core solder for electronics.</li>
+  <li><strong>Flux:</strong> Applied before tinning wires to help solder spread evenly. Think of flux as glue—it ensures solder sticks better and flows more easily. <strong>Do not use expired flux</strong> as it may fail or damage connections.</li>
+  <li><strong>Wire strippers:</strong> For safely removing insulation from wire ends.</li>
+  <li><strong>Wire cutters:</strong> Cut wires slightly longer than needed for precise work.</li>
+  <li><strong>Helping hands / Kotto extra hands:</strong> Hold wires in place to prevent burns and allow precise soldering.</li>
+  <li><strong>Magnifying lamp (optional):</strong> Provides better visibility for small or delicate wires.</li>
+  <li><strong>Vacuum fume extractor:</strong> Removes solder smoke, which is a safety hazard.</li>
+  <li><strong>Solder sucker (optional):</strong> Removes excess solder if necessary, mainly used for correcting mistakes.</li>
+  <li><strong>Sponge:</strong> Wet before soldering to clean the soldering iron tip. <strong>Do not leave dry</strong> — placing a hot iron on a dry sponge may start a fire.</li>
+  <li><strong>Metallic scraper:</strong> Used to scrape off excess solder.</li>
+  <li><strong>Heat shrink tubing:</strong> Slide onto wires <strong>before soldering</strong> to cover exposed copper after soldering for safety.</li>
+  <li><strong>Safety glasses:</strong> Protect your eyes from hot solder splashes.</li>
+  <li><strong>Gloves (optional):</strong> Protect hands from heat.</li>
+</ul>
+
+<h2>Step 1: Prepare Your Wires</h2>
+<ul>
+  <li>Strip the ends of the wires using wire strippers. Keep stripped lengths equal for neat connections.</li>
+  <li>Slide heat shrink tubing onto the wire before soldering.</li>
+  <li>Do not “birdy cage” the ends (twisting stripped ends together). This creates weak joints.</li>
+</ul>
+
+<h2>Step 2: Apply Flux</h2>
+<ul>
+  <li>Apply a small amount of flux to the stripped ends. It spreads solder evenly and helps adhesion.</li>
+  <li>Use fresh, unexpired flux to avoid failed connections or damage.</li>
+</ul>
+
+<h2>Step 3: Tinning the Wires</h2>
+<ul>
+  <li>Heat the soldering iron until fully hot (~1 minute, depends on the iron).</li>
+  <li>Lightly melt solder onto each fluxed wire end, coating it evenly. This is called tinning.</li>
+  <li>Even tinned wires make joining easier and more precise.</li>
+</ul>
+
+<h2>Step 4: Position the Wires</h2>
+<ul>
+  <li>Align wires tip-to-tip with equal exposed lengths.</li>
+  <li>Do not twist together (no birdy-caging).</li>
+  <li>Use helping hands to hold wires; gloves if holding by hand.</li>
+</ul>
+
+<h2>Step 5: Solder the Joint</h2>
+<ul>
+  <li>Place the soldering iron on the joint and let tinned solder flow together.</li>
+  <li>The solder should form a shiny, even joint.</li>
+  <li>If the joint needs adjustment, carefully remelt the solder to reposition or add more solder.</li>
+  <li>Use the solder sucker only to remove solder if necessary.</li>
+</ul>
+
+<h2>Step 6: Apply Heat Shrink</h2>
+<ul>
+  <li>Slide the heat shrink tubing over the joint.</li>
+  <li>Use heat to shrink it snugly around the soldered wire for insulation and safety.</li>
+</ul>
+
+<h2>Step 7: Inspect and Clean</h2>
+<ul>
+  <li>Check the joint is smooth, shiny, and fully covered.</li>
+  <li>Look for cold joints (dull, cracked, uneven solder) and reheat if necessary.</li>
+  <li>Clean the soldering iron on a wet sponge; use metallic scraper if excess solder remains.</li>
+  <li>Wash hands after soldering, especially if flux touched your skin.</li>
+  <li>Turn off and store the soldering iron safely.</li>
+</ul>
+
+<h2>Safety Tips and Best Practices</h2>
+<ul>
+  <li>Always wear safety glasses.</li>
+  <li>Use the vacuum fume extractor to avoid inhaling smoke.</li>
+  <li>Do not hold wires directly near the hot soldering iron; heat spreads quickly.</li>
+  <li>Magnifying lamps are optional but helpful.</li>
+  <li>Helping hands prevent burns and make soldering stable.</li>
+  <li>Keep workspace organized to avoid accidents.</li>
+  <li>Never leave a hot soldering iron on a dry sponge; it can start a fire.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Following these steps ensures strong, clean, and safe solder joints. Proper technique keeps both you and the robot safe, while producing professional-quality work.</p>
+`
+,
+  deburring: `<h1>Deburring & Tapping</h1><p>After drilling holes, remove metal burrs...</p>`,
+  board: `<h1>Electrical Board Setup</h1><p>Arrange RoboRIO, PDH, radio, and motor controllers...</p>`,
+  wire: `<h1>Wire Management</h1><p>Route wires along clean paths and avoid tangling...</p>`,
+ roborio: `
+<h1>RoboRIO</h1>
+<p>The RoboRIO is the brain of your robot. It controls all sensors, motor controllers, and other components by running the robot code.</p>
+
+<h2>Functions of the RoboRIO</h2>
+<ul>
+  <li>Receives input from sensors (e.g., encoders, gyros, range sensors, and color sensors).</li>
+  <li>Processes commands from your code and sends signals to motor controllers, solenoids, and LEDs.</li>
+  <li>Communicates with other devices over CAN, USB, and Ethernet connections.</li>
+</ul>
+
+<h2>Connection & Safety</h2>
+<ul>
+  <li>Ensure all connectors to the RoboRIO are secure. Loose connections can cause errors or unexpected robot behavior.</li>
+  <li>Check that male/female connectors are properly inserted to prevent miscommunication or damage.</li>
+  <li>Verify CAN IDs and sensor connections before powering on the robot.</li>
+  <li>Use a multimeter to check for voltage and continuity if troubleshooting connectivity issues.</li>
+  <li>Never handle the RoboRIO or wires while the robot is powered on.</li>
+  <li>Keep the RoboRIO mounted securely on the electrical board to avoid stress on wires and connectors.</li>
+</ul>
+
+<h2>Status LEDs</h2>
+<ul>
+  <li>RoboRIO has status LEDs that indicate power, code running, and communication health.</li>
+  <li>Typical LED meanings:</li>
+  <ul>
+    <li><strong>Green:</strong> Normal operation.</li>
+    <li><strong>Red:</strong> Fault or error detected.</li>
+    <li><strong>Flashing Yellow/Orange:</strong> Code is downloading or waiting for initialization.</li>
+  </ul>
+  <li>Always check LED status before and after matches to ensure the robot is functioning correctly.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Proper RoboRIO setup and monitoring is critical to safe, reliable, and precise robot operation.</p>
+`
+,
+ kraken: `
+<h1>Kraken Motors</h1>
+<p>Kraken Motors are powerful brushless motors used to drive the robot’s mechanisms. Proper wiring, CAN setup, and handling are essential for safe and reliable operation.</p>
+
+<h2>Purpose</h2>
+<ul>
+  <li>Provide high torque and precise control for robot movement or mechanisms.</li>
+  <li>Communicate with the RoboRIO over CAN for speed, position, and direction control.</li>
+  <li>Work with motor controllers to ensure consistent performance and protection against faults.</li>
+</ul>
+
+<h2>Wiring & Connections</h2>
+<ul>
+  <li>Use the correct gauge wire for power and CAN connections.</li>
+  <li>Secure all connectors properly—loose connections can cause sparks, motor faults, or dropped communication.</li>
+  <li>Check for proper CAN IDs to avoid conflicts with other devices on the bus.</li>
+  <li>Inspect crimps, solder joints, and wire routing to prevent shorts or interference with moving parts.</li>
+</ul>
+
+<h2>Safety & Maintenance</h2>
+<ul>
+  <li>Do not touch the motor or wires while powered; Kraken Motors can generate high current and heat quickly.</li>
+  <li>Ensure proper insulation and secure mounting to avoid mechanical stress on wires and connectors.</li>
+  <li>Check status lights on motor controllers to verify they are receiving power and communicating correctly with the RoboRIO.</li>
+  <li>Use zip ties or cable management to keep wires neat, away from moving parts, and safe from abrasion.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Correct wiring, secure connections, and careful handling of Kraken Motors ensure safe operation and reliable performance for your robot’s mechanisms.</p>
+`
+,
+  swerve: `
+<h1>Swerve Modules</h1>
+<p>Swerve modules are advanced wheel assemblies that allow the robot to move in any direction, not just forward and backward. They provide flexibility and precise maneuverability on the field.</p>
+
+<h2>Advantages Over Regular Wheels</h2>
+<ul>
+  <li>Each swerve module can rotate independently, allowing the robot to move sideways, diagonally, or in circles.</li>
+  <li>Greater flexibility in tight spaces and around obstacles.</li>
+  <li>Enables complex driving strategies such as strafing or precise alignment with field elements.</li>
+  <li>Reduces wear on wheels and allows smoother movement compared to fixed-direction wheels.</li>
+</ul>
+
+<h2>Components & Wiring</h2>
+<ul>
+  <li>Each module contains a drive motor for wheel rotation and a steering motor to rotate the wheel assembly.</li>
+  <li>Motors communicate with the RoboRIO over CAN and need secure wiring for proper control.</li>
+  <li>Check connections, crimps, and solder joints for reliability.</li>
+  <li>Keep wires organized and away from moving parts using zip ties or cable guides.</li>
+</ul>
+
+<h2>Safety & Maintenance</h2>
+<ul>
+  <li>Do not handle modules while powered; motors can generate high current and heat quickly.</li>
+  <li>Inspect modules regularly for loose bolts, worn bearings, or damaged wiring.</li>
+  <li>Check LED indicators on motor controllers to confirm proper communication with the RoboRIO.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Swerve modules provide superior agility and precise control, making them an excellent choice for competitive FRC robots.</p>
+`
+,
+ sensors: `
+<h1>Sensors & CAN Bus</h1>
+<p>Sensors and the CAN (Controller Area Network) bus are essential for your robot to understand its environment and communicate between devices.</p>
+
+<h2>What is CAN Bus?</h2>
+<ul>
+  <li>CAN Bus is a communication network that allows devices (like motor controllers, sensors, and the RoboRIO) to send and receive data over the same wires.</li>
+  <li>It transports commands and feedback between the RoboRIO and components. Essentially, it “talks” and sends code/data to devices so they operate correctly.</li>
+  <li>All CAN devices have unique IDs. Proper ID assignment is critical to avoid conflicts.</li>
+  <li>CAN wires are usually twisted pairs for signal integrity and noise reduction.</li>
+</ul>
+
+<h2>Types of Sensors</h2>
+<ul>
+  <li><strong>Range Sensors:</strong> Detect distance to objects (e.g., ultrasonic or LiDAR). Useful for autonomous navigation or collision avoidance.</li>
+  <li><strong>Color Sensors:</strong> Detect the color of game pieces or field markings. Often used for sorting or game logic in autonomous mode.</li>
+  <li><strong>Gyros/Encoders:</strong> Track robot rotation, speed, or position. Critical for precise driving and motion control.</li>
+</ul>
+
+<h2>CAN Device Status & LED Indicators</h2>
+<ul>
+  <li>Many CAN devices have LEDs showing connection or error status.</li>
+  <li>Typical LED colors:</li>
+  <ul>
+    <li><strong>Green:</strong> Device powered and communicating correctly.</li>
+    <li><strong>Red:</strong> Error or fault detected.</li>
+    <li><strong>Yellow/Orange:</strong> Warning, device connected but not fully operational or pending initialization.</li>
+  </ul>
+  <li>Check LED colors before powering the robot to ensure all sensors and CAN devices are functioning.</li>
+</ul>
+
+<h2>Best Practices for CAN & Sensors</h2>
+<ul>
+  <li>Verify all connections are secure—loose wires can cause intermittent communication errors.</li>
+  <li>Keep CAN wires tidy and away from high-power wires to avoid interference.</li>
+  <li>Use proper termination resistors on the CAN bus if required to prevent signal reflections.</li>
+  <li>Test each sensor individually with the RoboRIO to confirm it responds correctly before integrating into the full robot system.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Proper setup of sensors and CAN devices ensures accurate data, reliable communication, and safe robot operation.</p>
+`
+,
+ status: `
+<h1>Status Lights</h1>
+<p>Status lights are LED indicators on robot components that show the current state of the device. They are essential for quickly diagnosing issues and ensuring everything is working correctly, especially during competitions.</p>
+
+<h2>Why Status Lights are Important</h2>
+<ul>
+  <li>Provide instant visual feedback on power, errors, or communication issues.</li>
+  <li>Help troubleshoot problems quickly without disassembling components.</li>
+  <li>Essential during competitions when time is limited and fast diagnosis is critical.</li>
+  <li>Ensure the robot is safe to operate by indicating potential faults or disconnections.</li>
+</ul>
+
+<h2>How to Use Status Lights</h2>
+<ul>
+  <li>Check LED colors and blink patterns regularly to confirm normal operation.</li>
+  <li>If a light indicates an error, inspect the component and wiring immediately.</li>
+  <li>Use multimeters to double-check connections and voltage if needed.</li>
+  <li>Ensure zip ties and cable management do not cover or block status lights.</li>
+</ul>
+
+<h2>Learn More & Troubleshoot</h2>
+<p>For a detailed, interactive guide showing the status lights of key components, their causes, and fixes, visit our online tool here: <a href="https://vincents11.github.io/StatusLights/" target="_blank" style="color:#3BC04D; font-weight:bold;">Status Lights Guide</a>.</p>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Monitoring status lights is crucial for maintaining a safe, reliable, and competition-ready robot.</p>
+`
+,
+  multimeter: `
+<h1>Using a Multimeter</h1>
+<p>A multimeter is one of the most essential tools for any electrical subteam member. It allows you to check if connections are solid, resistances are correct, and current can flow through wires and components safely. Proper use ensures all components, including batteries, are healthy and wired correctly, preventing failures during matches.</p>
+
+<h2>Why Use a Multimeter</h2>
+<ul>
+  <li>Verify that battery connections are complete and current can flow properly through the terminals.</li>
+  <li>Check wire connections to ensure soldering and crimps are solid and continuous.</li>
+  <li>Test resistor connections after soldering to confirm they are correctly installed and electrically functional.</li>
+  <li>Detect damaged wires or poor connections early to prevent electrical issues on the robot.</li>
+</ul>
+
+<h2>Preparing to Use a Multimeter</h2>
+<ul>
+  <li>Start with the multimeter turned off or on the correct measurement mode.</li>
+  <li>Set the dial to the proper mode: <strong>Voltage (V)</strong> to check if a battery can supply voltage, <strong>Resistance/Ohms (Ω)</strong> to test connections, or <strong>Continuity</strong> to confirm current flow.</li>
+  <li>Ensure probes are clean and properly connected: black to COM, red to V/Ω/A depending on what you’re measuring.</li>
+</ul>
+
+<h2>Checking Battery Health and Connections</h2>
+<ul>
+  <li>Set the multimeter to voltage or continuity mode.</li>
+  <li>Place the probes on the battery terminals (black on negative, red on positive).</li>
+  <li>A proper reading or beep indicates that current can flow and the battery connection is healthy.</li>
+  <li>If the multimeter shows no voltage or no continuity, the battery may be disconnected, damaged, or faulty.</li>
+  <li>Always check batteries before installing them on the robot to ensure they are safe and functional.</li>
+</ul>
+
+<h2>Testing Wire and Resistor Connections</h2>
+<ul>
+  <li>After soldering a resistor or wire, set the multimeter to Ohms (Ω) mode or continuity mode.</li>
+  <li>Place the probes across the two ends of the connection.</li>
+  <li>A near-zero resistance or a beep indicates a solid connection.</li>
+  <li>High resistance or no continuity means the solder joint or wire may be faulty and needs to be fixed.</li>
+  <li>Use this method for checking both battery connections and other critical wiring.</li>
+</ul>
+
+<h2>Best Practices</h2>
+<ul>
+  <li>Always confirm your multimeter is on the correct mode before measuring.</li>
+  <li>Do not touch exposed wires or battery terminals while measuring to prevent short circuits.</li>
+  <li>Check all new connections and batteries regularly to maintain robot reliability.</li>
+</ul>
+
+<p style="color:#ffcc00; font-weight:bold; text-align:center;">Using a multimeter correctly ensures all batteries and connections allow proper current flow, keeping your robot safe and performing reliably.</p>
+`
+,
+  continuity: `<h1>Continuity Checks</h1><p>Continuity mode checks if current can flow...</p>`,
+  printer: `<h1>Printer Setup</h1><p>TBD</p>`,
+  slicer: `<h1>Slicer Settings</h1><p>TBD</p>`,
+  maintenance: `<h1>Maintenance</h1><p>TBD</p>`,
+  gauge: `<h1>Wire Gauge Chart</h1><p>Use thicker wires for motors and thinner for sensors...</p>`,
+  diagram: `<h1>Wiring Diagram Examples</h1><p>Visual references for wiring...</p>`,
+  checklist: `<h1>Pit Checklist</h1><p>Check battery, radio, wires, LEDs...</p>`
+};
+
+// Expand/collapse sidebar sections
+document.querySelectorAll('.section button').forEach(button => {
+  button.addEventListener('click', () => {
+    const subtopics = button.nextElementSibling;
+    subtopics.style.display = subtopics.style.display === 'block' ? 'none' : 'block';
+  });
+});
+
+// Load topic content
+document.querySelectorAll('.subtopics a').forEach(link => {
+  link.addEventListener('click', () => {
+    const topic = link.dataset.topic;
+    content.innerHTML = topics[topic] || "<h1>Topic Coming Soon</h1>";
+  });
+});
+
+// Search
+document.getElementById('search').addEventListener('keyup', function() {
+  const filter = this.value.toLowerCase();
+  document.querySelectorAll('.section').forEach(section => {
+    const matchesSection = section.textContent.toLowerCase().includes(filter);
+    section.style.display = matchesSection ? '' : 'none';
+    section.querySelectorAll('.subtopics a').forEach(a => {
+      const matchesSub = a.textContent.toLowerCase().includes(filter);
+      a.style.display = matchesSub ? '' : 'none';
+    });
+  });
+});
+
+// Light/Dark toggle
+document.querySelector('.toggle').addEventListener('click', () => {
+  document.body.classList.toggle('light');
+});
+</script>
+</body>
+</html>
+
