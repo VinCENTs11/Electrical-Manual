@@ -1,14 +1,22 @@
 :root {
   --red: #b11226;
-  --dark-bg: #0d0d0f;
-  --light-bg: #f5f5f5;
-  --dark-card: #161618;
-  --light-card: #ffffff;
-  --dark-text: #e0e0e0;
-  --light-text: #1a1a1a;
+
+  /* Light mode colors */
+  --light-taskbar-bg: #0d1f3c;   /* dark blue sidebar */
+  --light-bg: #ffffff;            /* white main background */
+  --light-alt-bg: #e6f0ff;        /* optional lighter accent */
+  --light-text: #1a1a1a;          /* dark text for content */
+
+  /* Dark mode colors */
+  --dark-taskbar-bg: #0d1f3c;     /* dark blue sidebar */
+  --dark-bg: #1a2a44;             /* slightly darker blue main background */
+  --dark-alt-bg: #12203a;         /* optional accent */
+  --dark-text: #ffffff;            /* white text for content */
+
   --border: #2a2a2a;
 }
 
+/* Body base */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -20,15 +28,16 @@ body {
   overflow-x: hidden;
 }
 
+/* Light mode toggle */
 body.light {
   background: var(--light-bg);
-  color: var(--light-text);
+  color: var(--light-text); /* content text stays dark */
 }
 
 /* Sidebar */
 .sidebar {
   width: 270px;
-  background: var(--dark-card);
+  background: var(--dark-card, var(--dark-taskbar-bg));
   color: var(--dark-text);
   border-right: 1px solid var(--border);
   padding: 20px;
@@ -37,9 +46,10 @@ body.light {
   flex-shrink: 0;
 }
 
+/* Fix: sidebar text readable in light mode */
 body.light .sidebar {
-  background: var(--light-card);
-  color: var(--light-text);
+  background: var(--light-taskbar-bg); /* keep dark blue */
+  color: #ffffff; /* sidebar text white for readability */
 }
 
 .sidebar h2 {
@@ -79,6 +89,7 @@ body.light .sidebar input {
   font-weight: 600;
   transition: color 0.2s;
 }
+
 .section button:hover { color: var(--red); }
 
 .subtopics {
@@ -97,6 +108,7 @@ body.light .sidebar input {
   opacity: 0.8;
   transition: 0.2s;
 }
+
 .subtopics a:hover { color: var(--red); opacity: 1; }
 
 /* Content */
@@ -104,6 +116,11 @@ body.light .sidebar input {
   flex: 1;
   padding: 40px;
   overflow-y: auto;
+  background-color: var(--dark-alt-bg);
+}
+
+body.light .content {
+  background-color: var(--light-bg);
 }
 
 .content h1 { font-size: 2rem; color: var(--red); }

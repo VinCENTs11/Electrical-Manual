@@ -12,8 +12,15 @@
   <input type="text" id="search" placeholder="Search topics...">
   <div id="menu">
     <div class="section">
-      <button>Electrical Basics</button>
+</div>
+    <div class="section">
+      <button>About 3512</button>
       <div class="subtopics">
+        <a href="#" data-topic="about">3512 Spartatroniks</a>
+      </div>
+
+<button>Electrical Basics</button>
+<div class="subtopics">
         <a href="#" data-topic="safety">Safety & Etiquette</a>
         <a href="#" data-topic="tools">Tools Overview</a>
         <a href="#" data-topic="ohms">Ohms & Resistors</a>
@@ -80,6 +87,7 @@
   <button class="toggle">Toggle Light/Dark</button>
   <h1>Welcome to the Electrical Handbook</h1>
   <p>This digital guide was created by <strong>Team 3512 Spartatroniks</strong> to help new and returning members master everything electrical — from wiring and soldering to safety, troubleshooting, and 3D printing.</p>
+
   <p>Explore each section using the sidebar, or use the search bar to quickly find a topic. The light/dark mode toggle lets you switch between pit-friendly dark mode and classroom-friendly light mode.</p>
 </div>
 
@@ -88,7 +96,24 @@ const content = document.querySelector('.content');
 
 // All topics must be strings (use backticks for multi-line HTML)
 const topics = {
-  safety: `
+  about: `
+<h1>Welcome to the Electrical Handbook</h1>
+<p>Welcome to the <strong>Team 3512 Spartatroniks Electrical Handbook</strong> — a resource built by our electrical subteam to guide current and future members of <strong>FIRST Robotics Competition Team 3512</strong>.</p>
+<div style="text-align: center; margin: 20px 0;">
+  <img src="img/spartans.png" 
+       alt="Team 3512 Spartatroniks Logo" 
+       style="width: 180px; max-width: 80%; height: auto; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.4);">
+</div>
+<p>We are based at <strong>Orcutt Academy High School</strong> in Orcutt, California, and this manual was created specifically to support the electrical division of our team. It’s designed to help members learn, reference, and improve their skills in wiring, soldering, power management, safety, and overall robot electrical systems.</p>
+
+<p>This handbook is a living document — it evolves each season as our team learns new techniques and discovers better ways to stay organized, safe, and efficient in the shop and at competitions.</p>
+
+<h2>Special Thanks</h2>
+<p>We want to give special thanks to all <strong>Team 3512 members</strong> — past and present — who contributed their time, knowledge, and dedication to make this possible. Huge appreciation also goes to our <strong>mentors</strong> for their ongoing guidance, patience, and support throughout every build season.</p>
+
+`,
+
+safety: `
 <h1>Electrical Safety & Etiquette</h1>
 <p>Safety is the top priority when working on the robot. Follow these rules to protect yourself, your teammates, and the robot’s electronics.</p>
 
@@ -702,6 +727,11 @@ document.getElementById('search').addEventListener('keyup', function() {
 document.querySelector('.toggle').addEventListener('click', () => {
   document.body.classList.toggle('light');
 });
+// Load intro by default
+window.addEventListener('DOMContentLoaded', () => {
+  content.innerHTML = topics['about'];
+});
+
 </script>
 </body>
 </html>
